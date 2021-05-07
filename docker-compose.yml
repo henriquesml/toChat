@@ -1,0 +1,28 @@
+version: "3.4"
+
+services:
+  backend:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    volumes:
+      - ./back-end:/usr/src
+      - ./back-end/node_modules:/usr/src/node_modules
+    ports:
+      - "3333:3333"
+    command: "yarn dev"
+  
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    volumes:
+      - ./front-end:/usr/src
+      - ./front-end/node_modules:/usr/src/node_modules
+    command: "yarn start"
+    ports:
+      - "3000:3000"
+    environment:
+      API_URL: "http://localhost:3333"
+    depends_on:
+      - backend
