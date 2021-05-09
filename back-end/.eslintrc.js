@@ -18,6 +18,7 @@ module.exports = {
     '@typescript-eslint', 'prettier'
   ],
   rules: {
-    'space-before-function-paren': ['error', 'never']
+    'space-before-function-paren': ['error', 'never'],
+    'no-useless-constructor': 'off'
   }
 }
