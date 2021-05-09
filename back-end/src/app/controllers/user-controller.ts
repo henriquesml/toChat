@@ -11,3 +11,5 @@ export class UserController {
 }
 
 const userService = new UserService()
+
+export default new UserController()

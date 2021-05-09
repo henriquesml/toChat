@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { SessionService } from '../services'
 
-export class SessinController {
+class SessionController {
   async create(req: Request, res: Response): Promise<any> {
     const response = await sessionService.authUser(req.body)
     const { status, ...rest } = response
@@ -10,3 +10,5 @@ export class SessinController {
 }
 
 const sessionService = new SessionService()
+
+export default new SessionController()
