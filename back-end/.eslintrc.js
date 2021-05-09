@@ -19,6 +19,7 @@ module.exports = {
   ],
   rules: {
     'space-before-function-paren': ['error', 'never'],
-    'no-useless-constructor': 'off'
+    'no-useless-constructor': 'off',
+    '@typescript-eslint/no-var-requires': 'off'
   }
 }
