@@ -1,10 +1,10 @@
 SHELL:=/bin/bash
 
-build:
+dev-build:
 	yarn
 	cd front-end && sudo yarn && cd ..
 	cd back-end && sudo yarn && cd ..
-	sudo docker-compose up
+	sudo docker-compose -f docker-compose-dev.yml up --build
 
-up:
-	sudo docker-compose up
+dev-up:
+	sudo docker-compose -f docker-compose-dev.yml up

@@ -1,0 +1,41 @@
+version: "3.4"
+
+services:
+  mongo:
+    image: 'mongo:4'
+    env_file:
+      - .env
+    ports:
+      - '27017:27017'
+
+  backend:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./back-end:/usr/app
+      - ./back-end/node_modules:/usr/app/node_modules
+    ports:
+      - "3333:3333"
+    command: "yarn dev"
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+  
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./front-end:/usr/app
+      - ./front-end/node_modules:/usr/app/node_modules
+    command: "yarn start"
+    ports:
+      - "3000:3000"
+    environment:
+      API_URL: "http://localhost:3333"
+    depends_on:
+      - backend
