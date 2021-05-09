@@ -1,9 +1,9 @@
-import express, { Request, Response } from 'express'
+import express from 'express'
+import { SessinController, UserController } from './app/controllers'
 
 const routes = express.Router()
 
-routes.get('/', (req: Request, res: Response) => {
-  return res.json({ msg: 'vai que vai meno' })
-})
+routes.post('/session', new SessinController().create)
+routes.post('/users', new UserController().create)
 
 export default routes
