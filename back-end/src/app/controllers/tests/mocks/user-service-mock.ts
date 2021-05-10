@@ -4,7 +4,7 @@ export type UserServiceReturnOptions = 'bodyIsValid' | 'userExistis' | 'userCrea
 
 export class MockUserService implements UserServiceProtocol {
   constructor(private readonly returnOptions: UserServiceReturnOptions) {}
-  createUser(data: any): Promise<DefaultReturn> {
+  createUser(data: Record<string, any>): Promise<DefaultReturn> {
     return Promise.resolve(returnOptions[this.returnOptions])
   }
 }

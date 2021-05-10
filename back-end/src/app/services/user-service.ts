@@ -5,7 +5,7 @@ import { UserRepositoryProtocol } from '../repositories/protocols'
 
 export class UserService implements UserServiceProtocol {
   constructor(private readonly userRepository: UserRepositoryProtocol) {}
-  async createUser(data: any): Promise<DefaultReturn> {
+  async createUser(data: Record<string, any>): Promise<DefaultReturn> {
     const bodyIsValid = await createUserValidator(data)
     if (!bodyIsValid) {
       return {

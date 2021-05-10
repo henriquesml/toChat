@@ -4,7 +4,7 @@ import { UserRepositoryProtocol } from '../repositories/protocols'
 
 export class SessionService implements SessionServiceProtocol {
   constructor(private readonly userRepository: UserRepositoryProtocol) {}
-  async authUser(data: any): Promise<DefaultReturn | userAuth> {
+  async authUser(data: Record<string, any>): Promise<DefaultReturn | userAuth> {
     const bodyIsValid = await userValidator(data)
     if (!bodyIsValid) {
       return {

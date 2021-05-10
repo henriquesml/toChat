@@ -4,7 +4,7 @@ export type SessionServiceReturnOptions = 'bodyIsValid' | 'authFail' | 'authSucc
 
 export class MockSessionService implements SessionServiceProtocol {
   constructor(private readonly returnOptions: SessionServiceReturnOptions) {}
-  async authUser(data: any): Promise<DefaultReturn | userAuth> {
+  async authUser(data: Record<string, any>): Promise<DefaultReturn | userAuth> {
     return Promise.resolve(returnOptions[this.returnOptions])
   }
 }
