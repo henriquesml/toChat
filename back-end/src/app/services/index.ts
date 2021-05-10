@@ -1,2 +1,2 @@
-export { default as SessionService } from './session-service'
-export { default as UserService } from './user-service'
+export * from './session-service'
+export * from './user-service'

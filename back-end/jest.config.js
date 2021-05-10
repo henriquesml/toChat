@@ -5,6 +5,8 @@ module.exports = {
   testEnvironment: 'node',
   coverageDirectory: 'coverage',
   collectCoverageFrom: [
-    '!**/index.ts'
+    '!**/index.ts',
+    '!**/*-mock.ts',
+    '!**/models/**'
   ]
 }

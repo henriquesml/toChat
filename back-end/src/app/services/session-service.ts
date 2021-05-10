@@ -1,15 +1,9 @@
-import { UserRepository } from '../repositories'
 import { userValidator } from '../validation/validators'
-import { DefaultReturn } from './protocols'
+import { SessionServiceProtocol, DefaultReturn, userAuth } from './protocols'
+import { UserRepositoryProtocol } from '../repositories/protocols'
 
-type userAuth = {
-  user: {
-    id: any
-    username: string
-  }
-} & DefaultReturn
-
-class SessionService {
+export class SessionService implements SessionServiceProtocol {
+  constructor(private readonly userRepository: UserRepositoryProtocol) {}
   async authUser(data: any): Promise<DefaultReturn | userAuth> {
     const bodyIsValid = await userValidator(data)
     if (!bodyIsValid) {
@@ -18,9 +12,9 @@ class SessionService {
         message: 'Username ou senha estão incorretos, verifique os dados e tente novamente.'
       }
     }
-    const user = await UserRepository.findOneUser(data.username)
+    const user = await this.userRepository.findOneUser(data.username)
 
-    if (!user || !(await UserRepository.checkUserPass(user, data.password))) {
+    if (!user || !(await this.userRepository.checkUserPass(user, data.password))) {
       return { status: 401, message: 'Não foi possível efetuar o login. Verifique os dados enviados e tente novamente.' }
     }
 
@@ -33,5 +27,3 @@ class SessionService {
     }
   }
 }
-
-export default new SessionService()

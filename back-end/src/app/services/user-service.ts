@@ -1,9 +1,10 @@
 
-import { UserRepository } from '../repositories'
 import { createUserValidator } from '../validation/validators'
-import { DefaultReturn } from './protocols'
+import { UserServiceProtocol, DefaultReturn } from './protocols'
+import { UserRepositoryProtocol } from '../repositories/protocols'
 
-class UserService {
+export class UserService implements UserServiceProtocol {
+  constructor(private readonly userRepository: UserRepositoryProtocol) {}
   async createUser(data: any): Promise<DefaultReturn> {
     const bodyIsValid = await createUserValidator(data)
     if (!bodyIsValid) {
@@ -13,7 +14,7 @@ class UserService {
       }
     }
     const { username, password } = data
-    const userExistis = await UserRepository.userExists(username)
+    const userExistis = await this.userRepository.userExists(username)
     if (userExistis) {
       return {
         status: 409,
@@ -21,7 +22,7 @@ class UserService {
           'Não foi possível criar a conta, o username informado já existe.'
       }
     }
-    const response = await UserRepository.create(username, password)
+    const response = await this.userRepository.create(username, password)
     if (response) {
       return { status: 201, message: 'Usuário criado com sucesso.' }
     } else {
@@ -32,5 +33,3 @@ class UserService {
     }
   }
 }
-
-export default new UserService()

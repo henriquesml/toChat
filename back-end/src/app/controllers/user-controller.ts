@@ -1,13 +1,14 @@
 import { Request, Response } from 'express'
-import { UserService } from '../services'
+import { ControllerProtocol, ControllerReturn } from './protocols'
+import { UserServiceProtocol } from '../services/protocols'
 
-export class UserController {
-  async create(req: Request, res: Response): Promise<any> {
-    const response = await UserService.createUser(req.body)
+export class UserController implements ControllerProtocol {
+  constructor(private readonly userService: UserServiceProtocol) {}
+
+  async create(req: Request, res: Response): Promise<ControllerReturn> {
+    const response = await this.userService.createUser(req.body)
     return res.status(response.status).json({
       message: response.message
     })
   }
 }
-
-export default new UserController()

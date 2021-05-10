@@ -1,12 +1,13 @@
 import { Request, Response } from 'express'
-import { SessionService } from '../services'
+import { ControllerProtocol, ControllerReturn } from './protocols'
+import { SessionServiceProtocol } from '../services/protocols'
 
-class SessionController {
-  async create(req: Request, res: Response): Promise<any> {
-    const response = await SessionService.authUser(req.body)
+export class SessionController implements ControllerProtocol {
+  constructor(private readonly sessionService: SessionServiceProtocol) {}
+
+  async create(req: Request, res: Response): Promise<ControllerReturn> {
+    const response = await this.sessionService.authUser(req.body)
     const { status, ...rest } = response
     return res.status(status).json({ ...rest })
   }
 }
-
-export default new SessionController()
