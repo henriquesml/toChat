@@ -1,6 +1,6 @@
 import { UserModel, UserInterface, checkPassword } from '../models'
 
-export default class UserRepository {
+class UserRepository {
   userExists(username: string): Promise<boolean> {
     return UserModel.findOne({ username: username }).then(user => {
       return user !== null
@@ -21,3 +21,5 @@ export default class UserRepository {
     return await checkPassword(password, user.password)
   }
 }
+
+export default new UserRepository()

@@ -3,13 +3,11 @@ import { UserService } from '../services'
 
 export class UserController {
   async create(req: Request, res: Response): Promise<any> {
-    const response = await userService.createUser(req.body)
+    const response = await UserService.createUser(req.body)
     return res.status(response.status).json({
       message: response.message
     })
   }
 }
-
-const userService = new UserService()
 
 export default new UserController()
