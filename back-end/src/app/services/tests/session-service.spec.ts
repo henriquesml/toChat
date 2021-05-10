@@ -1,21 +1,22 @@
-import bcrypt from 'bcryptjs'
-import { UserModel } from '../../models'
 import { SessionService } from '../session-service'
-const mockingoose = require('mockingoose')
+import { UserRepositoryProtocol, User } from '../../repositories/protocols'
+import { MockUserRepositoryHappyPath, MockUserRepositoryUnhappyPath } from './mocks'
 
 type SutTypes = {
   sut: SessionService
 }
 
-function makeSut(): SutTypes {
+const makeMockUnhappyPath = (userExists: boolean) => new MockUserRepositoryUnhappyPath(userExists)
+const makeMockHappyPath = (user: User | null) => new MockUserRepositoryHappyPath(user)
+
+function makeSut(userRepository: UserRepositoryProtocol): SutTypes {
   return {
-    sut: new SessionService()
+    sut: new SessionService(userRepository)
   }
 }
-
 describe('SessionService', () => {
   test('Não deve autenticar o usuário quando os parâmetros da requisição estiverem inválidos', async() => {
-    const { sut } = makeSut()
+    const { sut } = makeSut(makeMockUnhappyPath(false))
     expect(await sut.authUser({ param1: '', param2: '' })).toEqual({
       status: 403,
       message:
@@ -24,8 +25,7 @@ describe('SessionService', () => {
   })
 
   test('Não deve autenticar o usuário quando não estiver cadastrado', async() => {
-    const { sut } = makeSut()
-    mockingoose(UserModel).toReturn(null, 'findOne')
+    const { sut } = makeSut(makeMockUnhappyPath(false))
 
     expect(
       await sut.authUser({
@@ -40,9 +40,7 @@ describe('SessionService', () => {
   })
 
   test('Não deve autenticar o usuário quando errar a senha', async() => {
-    const { sut } = makeSut()
-    const userPassword = await bcrypt.hash('123456', 8)
-    mockingoose(UserModel).toReturn({ username: 'henriquesml', password: userPassword }, 'findOne')
+    const { sut } = makeSut(makeMockUnhappyPath(false))
 
     expect(
       await sut.authUser({
@@ -57,13 +55,11 @@ describe('SessionService', () => {
   })
 
   test('Deve autenticar o usuário quando os dados estiverem corretos', async() => {
-    const { sut } = makeSut()
-    const userPassword = await bcrypt.hash('123456', 8)
-    mockingoose(UserModel).toReturn({ _id: '609867eb4fa74251d7041ffa', username: 'henriquesml', password: userPassword }, 'findOne')
+    const { sut } = makeSut(makeMockHappyPath({ _id: '609867eb4fa74251d7041ffa', username: 'henrique' } as User))
 
     expect(
       await sut.authUser({
-        username: 'henriquesml',
+        username: 'henrique',
         password: '123456'
       })
     ).toEqual({
@@ -72,7 +68,7 @@ describe('SessionService', () => {
         'Autenticação efetuada com sucesso.',
       user: {
         id: '609867eb4fa74251d7041ffa',
-        username: 'henriquesml'
+        username: 'henrique'
       }
     })
   })

@@ -1,20 +1,23 @@
-import { UserModel } from '../../models'
+import { UserRepositoryProtocol, User } from '../../repositories/protocols'
 import { UserService } from '../user-service'
-const mockingoose = require('mockingoose')
+import { MockUserRepositoryHappyPath, MockUserRepositoryUnhappyPath } from './mocks'
 
 type SutTypes = {
   sut: UserService
 }
 
-function makeSut(): SutTypes {
+const makeMockUnhappyPath = (userExists: boolean) => new MockUserRepositoryUnhappyPath(userExists)
+const makeMockHappyPath = (user: User | null) => new MockUserRepositoryHappyPath(user)
+
+function makeSut(userRepository: UserRepositoryProtocol): SutTypes {
   return {
-    sut: new UserService()
+    sut: new UserService(userRepository)
   }
 }
 
 describe('UserService', () => {
   test('Não deve criar o usuário quando os parâmetros da requisição estiverem inválidos', async() => {
-    const { sut } = makeSut()
+    const { sut } = makeSut(makeMockUnhappyPath(false))
     expect(await sut.createUser({ param1: '', param2: '' })).toEqual({
       status: 400,
       message:
@@ -23,8 +26,7 @@ describe('UserService', () => {
   })
 
   test('Não deve criar o usuário quando já existe o username informado', async() => {
-    const { sut } = makeSut()
-    mockingoose(UserModel).toReturn({ _id: '609867eb4fa74251d7041ffa', username: 'henriquesml' }, 'findOne')
+    const { sut } = makeSut(makeMockUnhappyPath(true))
 
     expect(
       await sut.createUser({
@@ -40,9 +42,7 @@ describe('UserService', () => {
   })
 
   test('Deve criar o usuário corretamente', async() => {
-    const { sut } = makeSut()
-    mockingoose(UserModel).toReturn(null, 'findOne')
-    mockingoose(UserModel).toReturn({ _id: '609867eb4fa74251d7041ffa', username: 'henriquesml' }, 'save')
+    const { sut } = makeSut(makeMockHappyPath(null))
 
     expect(
       await sut.createUser({
@@ -58,9 +58,7 @@ describe('UserService', () => {
   })
 
   test('Deve notificar o usuário quando acontecer um erro interno', async() => {
-    const { sut } = makeSut()
-    mockingoose(UserModel).toReturn(null, 'findOne')
-    mockingoose(UserModel).toReturn(new Error('O mongo foi pras cucuia'), 'save')
+    const { sut } = makeSut(makeMockUnhappyPath(false))
 
     expect(
       await sut.createUser({
