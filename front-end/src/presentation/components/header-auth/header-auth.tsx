@@ -17,7 +17,7 @@ export const HeaderAuth: React.FC<HeaderAuthProps> = ({ primaryText, secondaryTe
         <HStack>
           <Text fontSize="sm">{secondaryText}</Text>
           <Link to={linkTo}>
-            <Button size="sm" variant="link" colorScheme="teal">
+            <Button size="sm" variant="link" colorScheme="blue">
               {linkText}
             </Button>
           </Link>

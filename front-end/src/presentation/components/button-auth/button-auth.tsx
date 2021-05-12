@@ -6,7 +6,7 @@ export const ButtonAuth: React.FC<ButtonAuthProps> = ({ loading, handleSubmit, c
   return (
     <Button
       size="lg"
-      colorScheme="teal"
+      colorScheme="blue"
       marginTop={6}
       isLoading={loading}
       onClick={e => handleSubmit(e)}
