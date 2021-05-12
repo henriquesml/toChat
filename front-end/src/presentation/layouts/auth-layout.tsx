@@ -5,7 +5,7 @@ import {
 
 export const AuthLayout: React.FC = ({ children }: any) => {
   return (
-    <Flex w="100vw" h="100vh" >
+    <Flex bg="gray.100" w="100vw" h="100vh" >
       {children}
     </Flex>
   )

@@ -5,7 +5,6 @@ import { GridAuthProps } from './grid-auth-props'
 export const GridAuth: React.FC<GridAuthProps> = ({ children }: GridAuthProps) => {
   return (
     <Grid
-      bg="gray.100"
       as="main"
       h="100%"
       w="100%"
