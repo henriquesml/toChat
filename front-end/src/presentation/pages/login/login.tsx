@@ -35,7 +35,7 @@ export const Login: React.FC<LoginProps> = ({
     try {
       const usernameIsInvald = username === ''
       const passwordIsInvald = password === ''
-      if (usernameIsInvald || passwordIsInvald) {
+      if ([usernameIsInvald, passwordIsInvald].includes(true)) {
         setError({
           username: usernameIsInvald,
           password: passwordIsInvald
