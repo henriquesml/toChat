@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
 import {
   GridAuth,
@@ -23,6 +24,7 @@ export const Login: React.FC<LoginProps> = ({
   })
 
   const toast = useToast()
+  const history = useHistory()
 
   async function handleSubmit(
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -58,6 +60,7 @@ export const Login: React.FC<LoginProps> = ({
       const { user } = response
       await saveCurrentUser.save(user.id, user.username)
       setLoading(false)
+      history.replace('/')
     } catch (error) {
       setLoading(false)
       setError({
