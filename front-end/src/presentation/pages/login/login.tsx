@@ -17,6 +17,10 @@ export const Login: React.FC<LoginProps> = ({
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState({
+    username: false,
+    password: false
+  })
 
   const toast = useToast()
 
@@ -24,9 +28,26 @@ export const Login: React.FC<LoginProps> = ({
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): Promise<void> {
     event.preventDefault()
-
+    setError({
+      username: false,
+      password: false
+    })
     try {
-      if (username === '' && password === '') {
+      const usernameIsInvald = username === ''
+      const passwordIsInvald = password === ''
+      if (usernameIsInvald || passwordIsInvald) {
+        setError({
+          username: usernameIsInvald,
+          password: passwordIsInvald
+        })
+        toast({
+          title: 'Campos obrigatórios',
+          position: 'bottom-right',
+          description: 'Username e senha são campos obrigatórios',
+          status: 'error',
+          duration: 6000,
+          isClosable: true
+        })
         return
       }
       setLoading(true)
@@ -39,6 +60,10 @@ export const Login: React.FC<LoginProps> = ({
       setLoading(false)
     } catch (error) {
       setLoading(false)
+      setError({
+        username: true,
+        password: true
+      })
       toast({
         title: 'Falha ao efetuar login',
         position: 'bottom-right',
@@ -66,6 +91,7 @@ export const Login: React.FC<LoginProps> = ({
             placeholder="Informe seu usuário"
             value={username}
             onChange={e => setUsername(e.target.value)}
+            isInvalid={error.username}
           />
           <InputLabel
             label="Senha"
@@ -74,6 +100,7 @@ export const Login: React.FC<LoginProps> = ({
             type="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
+            isInvalid={error.password}
           />
 
           <ButtonAuth loading={loading} handleSubmit={handleSubmit}>
