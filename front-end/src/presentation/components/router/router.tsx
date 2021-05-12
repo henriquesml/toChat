@@ -16,7 +16,7 @@ export const Router: React.FC<RouterProps> = ({ makeLogin, makeRegister, makeMai
       <Switch>
         <Route path="/login" Component={makeLogin} getCurrentUser={getCurrentUser}/>
         <Route path="/register" Component={makeRegister} getCurrentUser={getCurrentUser} />
-        <Route path="/" Component={makeMain} getCurrentUser={getCurrentUser} />
+        <Route path="/" Component={makeMain} getCurrentUser={getCurrentUser} isPrivate />
       </Switch>
     </BrowserRouter>
   )

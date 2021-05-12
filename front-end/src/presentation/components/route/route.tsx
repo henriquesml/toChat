@@ -23,6 +23,10 @@ export const Route: React.FC<RouteProps> = ({
     return <Redirect to="/login" />
   }
 
+  if (logged && !isPrivate) {
+    return <Redirect to="/" />
+  }
+
   const Layout = logged ? DefaultLayout : AuthLayout
 
   return (
