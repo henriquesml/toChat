@@ -13,8 +13,8 @@ export const Route: React.FC<RouteProps> = ({
 
   useEffect(() => {
     async function verifyLogged(): Promise<void> {
-      const user = await getCurrentUser.get()
-      setLogged(!!user.id)
+      const userData = await getCurrentUser.get()
+      setLogged(!!userData.user.id)
     }
     verifyLogged()
   }, [])

@@ -1,4 +1,6 @@
 export type UserModel = {
-  id: string
-  username: string
+  user: {
+    id: string
+    username: string
+  }
 }

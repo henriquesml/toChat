@@ -9,8 +9,10 @@ export class LocalGetCurrentUser implements GetCurrentUser {
     const id = await this.getStorage.get('id')
     const username = await this.getStorage.get('username')
     return {
-      id: id || '',
-      username: username || ''
+      user: {
+        id: id || '',
+        username: username || ''
+      }
     }
   }
 }

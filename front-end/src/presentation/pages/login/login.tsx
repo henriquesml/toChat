@@ -51,12 +51,12 @@ export const Login: React.FC<LoginProps> = ({
         return
       }
       setLoading(true)
-      const user = await authentication.auth({
+      const response = await authentication.auth({
         username: username,
         password: password
       })
-      const { id } = user
-      await saveCurrentUser.save(id, username)
+      const { user } = response
+      await saveCurrentUser.save(user.id, user.username)
       setLoading(false)
     } catch (error) {
       setLoading(false)
