@@ -1,7 +1,7 @@
-import { UserMongoRepository } from '../../../infra/repository'
-import { DbAddUser } from '../../../data/usecases'
-import { AddUser } from '../../../domain/usecases'
-import { BcryptAdapter } from '../../../infra/cryptography'
+import { UserMongoRepository } from '@/infra/repository'
+import { DbAddUser } from '@/data/usecases'
+import { AddUser } from '@/domain/usecases'
+import { BcryptAdapter } from '@/infra/cryptography'
 
 export const makeDbAddUser = (): AddUser => {
   const salt = 12

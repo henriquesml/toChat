@@ -7,7 +7,7 @@ import {
   AddUserRepositoryResult,
   LoadUserByUsernameRepositoryResult,
   CheckUserByUsernameRepositoryResult
-} from '../../../data/protocols/repository/user'
+} from '@/data/protocols/repository/user'
 
 export class UserMongoRepository
 implements

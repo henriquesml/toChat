@@ -1,5 +1,5 @@
-import { AddUser, AddUserParams, AddUserResult } from '../../domain/usecases'
-import { Hasher, AddUserRepository, CheckUserByUsernameRepository } from '../protocols'
+import { AddUser, AddUserParams, AddUserResult } from '@/domain/usecases'
+import { Hasher, AddUserRepository, CheckUserByUsernameRepository } from '@/data/protocols'
 
 export class DbAddUser implements AddUser {
   constructor(
