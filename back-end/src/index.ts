@@ -1,17 +1,9 @@
-import express from 'express'
-import mongoose from 'mongoose'
-import cors from 'cors'
-import routes from './app/main/routes'
+import 'module-alias/register'
+import { MongoHelper } from '@/infra/repository'
 
-const app = express()
-
-mongoose.connect(String(process.env.MONGO_URI), {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-
-app.use(cors())
-app.use(express.json())
-app.use(routes)
-
-app.listen(3333)
+MongoHelper.connect(String(process.env.MONGO_URI))
+  .then(async() => {
+    const app = (await import('./main/config/app')).default
+    app.listen(3333, () => console.log('Server running at http://localhost:3333'))
+  })
+  .catch(console.error)
