@@ -16,11 +16,10 @@ export class SignUpController implements Controller {
       if (error) {
         return badRequest(error)
       }
-      const { username, password, confirmPassword } = request
+      const { username, password } = request
       const isValid = await this.addUser.add({
         username,
-        password,
-        confirmPassword
+        password
       })
       if (!isValid) {
         return forbidden(new UsernameInUseError())

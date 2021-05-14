@@ -6,4 +6,4 @@ export type LoadUserByUsernameRepositoryResult = {
   id: string
   username: string
   password: string
-}
+} | null

@@ -1,7 +1,6 @@
 export type AddUserParams = {
   username: string
   password: string
-  confirmPassword: string
 }
 
 export type AddUserResult = boolean

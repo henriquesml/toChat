@@ -1,1 +1,1 @@
-export * from './og-controller-decorator-factory'
+export * from './log-controller-decorator-factory'

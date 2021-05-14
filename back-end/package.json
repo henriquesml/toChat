@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "test": "jest",
-    "test:watch": "yarn test --watch",
+    "test": "NODE_ENV=test jest",
+    "test:watch": "yarn test --watch ",
     "test:staged": "yarn test --findRelatedTests --silent",
     "test:ci": "yarn test --coverage --silent"
   },
@@ -19,6 +19,7 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
+    "@shelf/jest-mongodb": "^1.2.4",
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.10",
     "@types/express": "^4.17.11",
