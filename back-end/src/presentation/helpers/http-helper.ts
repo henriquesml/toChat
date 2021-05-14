@@ -18,7 +18,7 @@ export const unauthorized = (): HttpResponse => ({
 
 export const serverError = (error: Error): HttpResponse => ({
   statusCode: 500,
-  body: new ServerError(error?.stack || 'Internal error')
+  body: new ServerError(error.stack || 'Internal error')
 })
 
 export const ok = (data: any): HttpResponse => ({
