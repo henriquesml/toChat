@@ -15,8 +15,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "module-alias": "^2.2.2",
-    "mongodb": "^3.6.6",
-    "yup": "^0.32.9"
+    "mongodb": "^3.6.6"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.4",
