@@ -14,10 +14,10 @@ export const Route: React.FC<RouteProps> = ({
   useEffect(() => {
     async function verifyLogged(): Promise<void> {
       const userData = await getCurrentUser.get()
-      setLogged(!!userData.user.id)
+      setLogged(!!userData.id)
     }
     verifyLogged()
-  }, [])
+  }, [Component])
 
   if (!logged && isPrivate) {
     return <Redirect to="/login" />

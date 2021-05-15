@@ -61,7 +61,7 @@ export const Register: React.FC<RegisterProps> = ({
         password: password,
         confirmPassword: confirmPassword
       })
-      const { user } = response
+      const user = response
       await saveCurrentUser.save(user.id, user.username)
       setLoading(false)
     } catch (error) {

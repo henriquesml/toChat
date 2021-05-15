@@ -4,5 +4,5 @@ import { makeAxiosHttpClient } from '../../http/axios-http-client-factory'
 import { makeApiUrl } from '../../http/api-url-factory'
 
 export const makeApiCreateUser = (): CreateUser => {
-  return new ApiCreateUser(makeApiUrl('/users'), makeAxiosHttpClient())
+  return new ApiCreateUser(makeApiUrl('/signup'), makeAxiosHttpClient())
 }

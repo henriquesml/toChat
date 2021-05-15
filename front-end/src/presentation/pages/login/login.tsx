@@ -57,7 +57,7 @@ export const Login: React.FC<LoginProps> = ({
         username: username,
         password: password
       })
-      const { user } = response
+      const user = response
       await saveCurrentUser.save(user.id, user.username)
       setLoading(false)
       history.replace('/')

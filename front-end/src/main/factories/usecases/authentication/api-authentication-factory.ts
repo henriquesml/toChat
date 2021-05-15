@@ -4,5 +4,5 @@ import { makeAxiosHttpClient } from '../../http/axios-http-client-factory'
 import { makeApiUrl } from '../../http/api-url-factory'
 
 export const makeApiAuthentication = (): Authentication => {
-  return new ApiAuthentication(makeApiUrl('/session'), makeAxiosHttpClient())
+  return new ApiAuthentication(makeApiUrl('/login'), makeAxiosHttpClient())
 }
