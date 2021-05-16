@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
 import {
   GridAuth,
@@ -12,50 +13,36 @@ import { RegisterProps } from './register-props'
 
 export const Register: React.FC<RegisterProps> = ({
   createUser,
-  saveCurrentUser
+  saveCurrentUser,
+  validation
 }: RegisterProps) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState({
-    username: false,
-    password: false,
-    confirmPassword: false
-  })
-
+  const [error, setError] = useState(false)
+  const history = useHistory()
   const toast = useToast()
 
   async function handleSubmit(
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): Promise<void> {
     event.preventDefault()
-    setError({
-      username: false,
-      password: false,
-      confirmPassword: false
-    })
     try {
-      const usernameIsInvald = username === ''
-      const passwordIsInvald = password === ''
-      const confirmPasswordIsInvald = confirmPassword === '' || password !== confirmPassword
-      if ([usernameIsInvald, passwordIsInvald, confirmPasswordIsInvald].includes(true)) {
-        setError({
-          username: usernameIsInvald,
-          password: passwordIsInvald,
-          confirmPassword: confirmPasswordIsInvald
-        })
+      setLoading(true)
+      const error = validation.validate({ username, senha: password, 'confirmação de senha': confirmPassword })
+      if (error) {
+        setError(true)
         toast({
-          title: 'Campos obrigatórios',
+          title: error.name,
           position: 'bottom-right',
-          description: 'Para criar sua conta é necessário o preenchimento de todos os campos',
+          description: error.message,
           status: 'error',
           duration: 6000,
           isClosable: true
         })
         return
       }
-      setLoading(true)
       const response = await createUser.createUser({
         username: username,
         password: password,
@@ -64,15 +51,20 @@ export const Register: React.FC<RegisterProps> = ({
       const user = response
       await saveCurrentUser.save(user.id, user.username)
       setLoading(false)
+      toast({
+        title: 'Conta criada com sucesso',
+        position: 'bottom-right',
+        description: `Olá ${user.username}, sua conta foi criada com sucesso.`,
+        status: 'success',
+        duration: 6000,
+        isClosable: true
+      })
+      history.replace('/')
     } catch (error) {
       setLoading(false)
-      setError({
-        username: true,
-        password: true,
-        confirmPassword: true
-      })
+      setError(true)
       toast({
-        title: 'Falha ao efetuar login',
+        title: 'Falha ao efetuar cadastro',
         position: 'bottom-right',
         description: error.message,
         status: 'error',
@@ -98,7 +90,7 @@ export const Register: React.FC<RegisterProps> = ({
             placeholder="Informe seu usuário"
             value={username}
             onChange={e => setUsername(e.target.value)}
-            isInvalid={error.username}
+            isInvalid={error}
           />
           <InputLabel
             label="Senha"
@@ -107,7 +99,7 @@ export const Register: React.FC<RegisterProps> = ({
             type="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
-            isInvalid={error.password}
+            isInvalid={error}
           />
           <InputLabel
             label="Cofirmação da senha"
@@ -116,7 +108,7 @@ export const Register: React.FC<RegisterProps> = ({
             type="password"
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
-            isInvalid={error.confirmPassword}
+            isInvalid={error}
           />
 
           <ButtonAuth loading={loading} handleSubmit={handleSubmit}>

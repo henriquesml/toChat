@@ -30,6 +30,7 @@ export const Login: React.FC<LoginProps> = ({
     event.preventDefault()
 
     try {
+      setLoading(true)
       const error = validation.validate({ username, senha: password })
       if (error) {
         setError(true)
@@ -43,7 +44,6 @@ export const Login: React.FC<LoginProps> = ({
         })
         return
       }
-      setLoading(true)
       const response = await authentication.auth({
         username: username,
         password: password
@@ -51,6 +51,14 @@ export const Login: React.FC<LoginProps> = ({
       const user = response
       await saveCurrentUser.save(user.id, user.username)
       setLoading(false)
+      toast({
+        title: 'Login efetuado com sucesso',
+        position: 'bottom-right',
+        description: `Olá ${user.username}, seja bem-vindo de volta.`,
+        status: 'success',
+        duration: 6000,
+        isClosable: true
+      })
       history.replace('/')
     } catch (error) {
       setLoading(false)

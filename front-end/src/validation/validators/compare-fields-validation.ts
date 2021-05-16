@@ -1,4 +1,4 @@
-import { Validation } from '../../presentation/protocols'
+import { Validation } from '@/presentation/protocols'
 import { InvalidFieldError } from '../../presentation/errors'
 
 // rever

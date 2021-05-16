@@ -1,5 +1,5 @@
 import { HttpPostClient, HttpStatusCode } from '../../protocols/http'
-import { InvalidCredentialsError, UnexpectedError } from '../../../domain/erros'
+import { InvalidCredentialsError, UnexpectedError, UsernameInUseError } from '../../../domain/erros'
 import { CreateUser, CreateUserParams } from '../../../domain/usecases'
 import { UserModel } from '../../../domain/models'
 
@@ -21,6 +21,8 @@ export class ApiCreateUser implements CreateUser {
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok:
         return httpResponse.body
+      case HttpStatusCode.forbidden:
+        throw new UsernameInUseError()
       case HttpStatusCode.unauthorized:
         throw new InvalidCredentialsError()
       default:

@@ -1,5 +1,5 @@
 import { Validation } from '@/presentation/protocols'
-import { Authentication, SaveCurrentUser } from '../../../domain/usecases'
+import { Authentication, SaveCurrentUser } from '@/domain/usecases'
 
 export type LoginProps = {
   authentication: Authentication
