@@ -13,15 +13,13 @@ import { LoginProps } from './login-props'
 
 export const Login: React.FC<LoginProps> = ({
   authentication,
-  saveCurrentUser
+  saveCurrentUser,
+  validation
 }: LoginProps) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState({
-    username: false,
-    password: false
-  })
+  const [error, setError] = useState(false)
 
   const toast = useToast()
   const history = useHistory()
@@ -30,22 +28,15 @@ export const Login: React.FC<LoginProps> = ({
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): Promise<void> {
     event.preventDefault()
-    setError({
-      username: false,
-      password: false
-    })
+
     try {
-      const usernameIsInvald = username === ''
-      const passwordIsInvald = password === ''
-      if ([usernameIsInvald, passwordIsInvald].includes(true)) {
-        setError({
-          username: usernameIsInvald,
-          password: passwordIsInvald
-        })
+      const error = validation.validate({ username, senha: password })
+      if (error) {
+        setError(true)
         toast({
-          title: 'Campos obrigatórios',
+          title: error.name,
           position: 'bottom-right',
-          description: 'Username e senha são campos obrigatórios',
+          description: error.message,
           status: 'error',
           duration: 6000,
           isClosable: true
@@ -63,10 +54,7 @@ export const Login: React.FC<LoginProps> = ({
       history.replace('/')
     } catch (error) {
       setLoading(false)
-      setError({
-        username: true,
-        password: true
-      })
+      setError(true)
       toast({
         title: 'Falha ao efetuar login',
         position: 'bottom-right',
@@ -94,7 +82,7 @@ export const Login: React.FC<LoginProps> = ({
             placeholder="Informe seu usuário"
             value={username}
             onChange={e => setUsername(e.target.value)}
-            isInvalid={error.username}
+            isInvalid={!username && error}
           />
           <InputLabel
             label="Senha"
@@ -103,7 +91,7 @@ export const Login: React.FC<LoginProps> = ({
             type="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
-            isInvalid={error.password}
+            isInvalid={!password && error}
           />
 
           <ButtonAuth loading={loading} handleSubmit={handleSubmit}>
