@@ -3,3 +3,4 @@ coverage
 yarn-error.log
 mongodb-binaries
 back-end/globalConfig.json
+radata
