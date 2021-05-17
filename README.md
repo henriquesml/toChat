@@ -32,3 +32,9 @@ Após rodar o build do docker, a aplicação estará rodando em:
 Backend: http://localhost:3333
 
 Frontend: http://localhost:3000
+
+---
+
+### Todo
+[] 100% de cobertura backend
+[] Testes de frontend
