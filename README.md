@@ -11,3 +11,8 @@ Para rodar a aplicação, você precisa entar na pasta raiz do projeto e rodar:
 ```bash
 sudo make dev-build
 ```
+
+Após rodar o build do docker, a aplicação estará rodando em:
+
+Backend: http://localhost:3333
+Frontend: http://localhost:3000
