@@ -51,8 +51,7 @@ describe('DbAddUser Usecase', () => {
     await sut.add(addUserParams)
     expect(addUserRepositorySpy.params).toEqual({
       username: addUserParams.username,
-      password: hasherSpy.digest,
-      confirmPassword: addUserParams.confirmPassword
+      password: hasherSpy.digest
     })
   })
 

@@ -3,8 +3,7 @@ import faker from 'faker'
 
 export const mockAddUserParams = (): AddUserParams => ({
   username: faker.name.findName(),
-  password: faker.internet.password(),
-  confirmPassword: faker.internet.password()
+  password: faker.internet.password()
 })
 
 export const mockAuthenticationParams = (): AuthenticationParams => ({
