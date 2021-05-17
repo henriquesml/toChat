@@ -15,4 +15,5 @@ sudo make dev-build
 Após rodar o build do docker, a aplicação estará rodando em:
 
 Backend: http://localhost:3333
+
 Frontend: http://localhost:3000
