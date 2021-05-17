@@ -35,6 +35,19 @@ Frontend: http://localhost:3000
 
 ---
 
+## Testes
+rodas nas pastas: ./front-end e ./back-end
+
+```bash
+// Coletar coverage
+yarn test:ci
+
+// Rodar os testes alterados
+yarn test:watch
+```
+
+---
+
 ### Todo
 - [ ] 100% de cobertura backend
 - [ ] Testes de frontend
