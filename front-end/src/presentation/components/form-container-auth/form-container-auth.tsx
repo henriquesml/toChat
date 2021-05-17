@@ -3,7 +3,8 @@ import { Flex } from '@chakra-ui/react'
 import { FormContainerAuthProps } from './form-container-auth-props'
 
 export const FormContainerAuth: React.FC<FormContainerAuthProps> = ({
-  children
+  children,
+  ...props
 }: FormContainerAuthProps) => {
   return (
     <Flex
@@ -11,6 +12,7 @@ export const FormContainerAuth: React.FC<FormContainerAuthProps> = ({
       height="100%"
       alignItems="center"
       justifyContent="center"
+      {...props}
     >
       {children}
     </Flex>

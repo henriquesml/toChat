@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid } from '@chakra-ui/react'
 import { GridAuthProps } from './grid-auth-props'
 
-export const GridAuth: React.FC<GridAuthProps> = ({ children }: GridAuthProps) => {
+export const GridAuth: React.FC<GridAuthProps> = ({ children, ...props }: GridAuthProps) => {
   return (
     <Grid
       as="main"
@@ -17,6 +17,7 @@ export const GridAuth: React.FC<GridAuthProps> = ({ children }: GridAuthProps) =
       "
       justifyContent="center"
       alignItems="center"
+      {...props}
     >
       {children}
     </Grid>

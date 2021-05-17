@@ -20,7 +20,7 @@ export class ApiAuthentication implements Authentication {
 
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok:
-        return httpResponse.body
+        return httpResponse.body as UserModel
       case HttpStatusCode.unauthorized:
         throw new InvalidCredentialsError()
       default:

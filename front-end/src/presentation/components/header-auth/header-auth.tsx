@@ -4,9 +4,15 @@ import { Link } from 'react-router-dom'
 import { Logo } from '../logo'
 import { HeaderAuthProps } from './header-auth-props'
 
-export const HeaderAuth: React.FC<HeaderAuthProps> = ({ primaryText, secondaryText, linkText, linkTo }: HeaderAuthProps) => {
+export const HeaderAuth: React.FC<HeaderAuthProps> = ({
+  primaryText,
+  secondaryText,
+  linkText,
+  linkTo,
+  ...props
+}: HeaderAuthProps) => {
   return (
-    <Flex gridArea="logo" flexDir="column" alignItems="center">
+    <Flex gridArea="logo" flexDir="column" alignItems="center" {...props}>
       <Flex h="100px" w="100%" justifyContent="center">
         <Logo />
       </Flex>

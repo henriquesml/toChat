@@ -102,12 +102,11 @@ export const Main: React.FC<MainProps> = ({
               >
                 <Flex h="100%" alignItems="center" justifyContent="center">
                   <Avatar
-                    border="2px solid"
-                    borderColor="white"
-                    name="Henrique Schmeller"
+                    border="2px solid white"
+                    name={currentUser}
                   />
                   <Text ml="10px" color="white" fontSize="sm">
-                    Henrique Schmeller
+                    {currentUser}
                   </Text>
                 </Flex>
               </Flex>

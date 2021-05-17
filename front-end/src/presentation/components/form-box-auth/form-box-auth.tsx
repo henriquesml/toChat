@@ -3,7 +3,8 @@ import { Flex } from '@chakra-ui/react'
 import { FormBoxAuthProps } from './form-box-auth-props'
 
 export const FormBoxAuth: React.FC<FormBoxAuthProps> = ({
-  children
+  children,
+  ...props
 }: FormBoxAuthProps) => {
   return (
     <Flex
@@ -16,6 +17,7 @@ export const FormBoxAuth: React.FC<FormBoxAuthProps> = ({
       justifyContent="center"
       padding={10}
       boxShadow="md"
+      {...props}
     >
       {children}
     </Flex>

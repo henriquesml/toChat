@@ -20,7 +20,7 @@ export class ApiCreateUser implements CreateUser {
 
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok:
-        return httpResponse.body
+        return httpResponse.body as UserModel
       case HttpStatusCode.forbidden:
         throw new UsernameInUseError()
       case HttpStatusCode.unauthorized:
