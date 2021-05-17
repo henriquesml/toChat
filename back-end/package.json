@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.ts",
+    "start": "node src/index.ts",
     "test": "NODE_ENV=test jest",
     "test:watch": "yarn test --watch ",
     "test:staged": "yarn test --findRelatedTests --silent",
