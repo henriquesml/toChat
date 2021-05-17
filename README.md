@@ -36,5 +36,5 @@ Frontend: http://localhost:3000
 ---
 
 ### Todo
-[] 100% de cobertura backend
-[] Testes de frontend
+- [ ] 100% de cobertura backend
+- [ ] Testes de frontend
