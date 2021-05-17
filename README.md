@@ -5,6 +5,13 @@ Um chat P2P em tempo real usando Clean architecture Node, Gun e React
 
 ---
 
+## Mockup do projeto e camadas da aplicação
+Link do projeto no figma, com os os protótipos das telas e a estrutura das camadas da arquitetura da aplicação.
+
+https://www.figma.com/file/fiLFlPr8zpJRF6NGXvmeLl/toChat?node-id=0%3A1
+
+---
+
 ## Buildando o ambiente de dev
 Para buildar a aplicação, você precisa entar na pasta raiz do projeto e rodar:
 
