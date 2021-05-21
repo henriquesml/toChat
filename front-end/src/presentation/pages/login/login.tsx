@@ -42,6 +42,7 @@ export const Login: React.FC<LoginProps> = ({
           duration: 6000,
           isClosable: true
         })
+        setLoading(false)
         return
       }
       const response = await authentication.auth({

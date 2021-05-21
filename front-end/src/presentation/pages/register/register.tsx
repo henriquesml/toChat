@@ -41,6 +41,7 @@ export const Register: React.FC<RegisterProps> = ({
           duration: 6000,
           isClosable: true
         })
+        setLoading(false)
         return
       }
       const response = await createUser.createUser({
